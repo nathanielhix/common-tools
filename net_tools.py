@@ -18,13 +18,11 @@ class NetHost:
         ping_result = ping_check(iface)
 
         if ping_result is True:
-            result = 'up'
+            self.ifaces[iface] = 'up'
         elif ping_result is False:
-            result = 'down'
+            self.ifaces[iface] = 'down'
         else:
-            result = 'unknown'
-
-        self.ifaces[iface] = result
+            self.ifaces[iface] = 'unknown'
 
 
 def get_host_ip(host_name):
