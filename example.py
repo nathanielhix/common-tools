@@ -9,6 +9,7 @@ def main():
 
     server = net_tools.NetHost(user_input)
     server.host_ip()
+    server.iface_status(server.hostname)
 
     for k, v in server.__dict__.items():
         print(f'DEBUG: {k}: {v}', file=sys.stderr)
