@@ -5,16 +5,15 @@ import json
 import net_tools
 
 def main():
-    user_input = sys.argv[1]
+    servers = {}
 
-    server = net_tools.NetHost(user_input)
-    server.host_ip()
-    server.iface_status(server.hostname)
+    for x in sys.argv[1:]:
+        server = net_tools.NetHost(x)
+        server.host_ip()
+        server.iface_status(server.hostname)
+        servers[server.hostname] = server.__dict__
 
-    for k, v in server.__dict__.items():
-        print(f'DEBUG: {k}: {v}', file=sys.stderr)
-
-    print(json.dumps(server.__dict__))
+    print(json.dumps(servers, indent=2))
 
 
 if __name__ == '__main__':
