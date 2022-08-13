@@ -8,14 +8,27 @@ import sys
 
 
 def main():
-    # A dictionary of NetHost object attributes.
-    servers = {}
-
     # The number of total cores.
     cores = cpu_count()
 
     # a list of NetHost objects.
     server_list = [net_tools.NetHost(x) for x in sys.argv[1:]]
+
+    # Run ping.
+    servers = run_ping(server_list, cores)
+
+    # Run ssh.
+    cmd = ['uptime']
+    for x in server_list:
+        x.ssh_cmd('svc-admin', cmd)
+
+    # Print the results
+    print(json.dumps(servers, indent=2))
+
+
+def run_ping(server_list, cores):
+    # A dictionary of NetHost objects.
+    servers = {}
 
     # Ping NetHost objects concurrently.
     with concurrent.futures.ThreadPoolExecutor(max_workers=cores) as executor:
@@ -30,8 +43,7 @@ def main():
 
             servers[server.hostname] = server.__dict__
 
-    # Print the results
-    print(json.dumps(servers, indent=2))
+    return servers
 
 
 def ping_server(server):
