@@ -32,7 +32,7 @@ def ping_check(host_name):
     cmd_ping = [
         'ping',
         '-c1',
-        '-w2',
+        '-w4',
         host_name
     ]
 
