@@ -1,4 +1,4 @@
-from getpass import getuser
+from getpass import getuser, getpass
 from socket import gethostbyname
 import subprocess
 import sys
@@ -65,6 +65,16 @@ def get_user_name(user_name):
         user_name = getuser()
 
     return user_name
+
+def get_passwd():
+    passwd = None:
+    while passwd is None:
+        passwd = getpass()
+
+        if not passwd.strip():
+            passwd = None
+
+    return passwd
 
 
 def ssh_cmd(host_name, user_name, cmd):
