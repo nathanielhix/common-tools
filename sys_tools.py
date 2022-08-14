@@ -27,22 +27,16 @@ def c_fmt(msg: str, severity: str) -> str:
     if severity not in levels:
         severity = 'debug'
 
-    c_info = '\033[94m'
-    c_warn = '\033[93m'
-    c_crit = '\033[91m'
-    c_debug = '\033[96m'
     c_reset = '\033[0m'
 
-    msg = f'{msg}{c_reset}'
+    colors = {
+        'info': '\033[94m',
+        'warn': '\033[93m',
+        'crit': '\033[91m',
+        'debug': '\033[96m'
+    }
 
-    if severity == 'info':
-        return f'{c_info}{msg}'
-    elif severity == 'warn':
-        return f'{c_warn}{msg}'
-    elif severity == 'crit':
-        return f'{c_crit}{msg}'
-    elif severity == 'debug':
-        return f'{c_debug}{msg}'
+    return f'{colors[severity]}{msg}{c_reset}'
 
 
 def get_user_name(user_name):
