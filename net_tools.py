@@ -57,7 +57,7 @@ def ping_check(host_name: str) -> bool:
         return False
 
 
-def ssh_cmd(host_name, user_name, cmd) -> str:
+def ssh_cmd(host_name: str, user_name: str, cmd: list) -> str:
     # Verify there's an agent running.
     cmd_agent = [
         'ssh-add',
