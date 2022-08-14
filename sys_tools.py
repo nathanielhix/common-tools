@@ -1,4 +1,5 @@
 from getpass import getuser, getpass
+from typing import Union
 import sys
 
 
@@ -46,14 +47,14 @@ def c_fmt(msg: str, severity: str) -> str:
     return f'{colors[severity]}{msg}{c_reset}'
 
 
-def get_user_name(user_name):
+def get_user_name(user_name: Union[str, None]) -> str:
     if user_name is None:
         user_name = getuser()
 
     return user_name
 
 
-def get_passwd():
+def get_passwd() -> str:
     passwd = None
 
     while passwd is None:

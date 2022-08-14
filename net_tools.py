@@ -33,11 +33,11 @@ class NetHost:
         self.outs, self.errs = ssh_cmd(self.hostname, user, cmd)
 
 
-def get_host_ip(host_name):
+def get_host_ip(host_name: str) -> str:
     return gethostbyname(host_name)
 
 
-def ping_check(host_name):
+def ping_check(host_name: str) -> bool:
     cmd_ping = [
         'ping',
         '-c1',
@@ -57,7 +57,7 @@ def ping_check(host_name):
         return False
 
 
-def ssh_cmd(host_name, user_name, cmd):
+def ssh_cmd(host_name, user_name, cmd) -> str:
     # Verify there's an agent running.
     cmd_agent = [
         'ssh-add',
