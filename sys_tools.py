@@ -2,6 +2,7 @@ from getpass import getuser, getpass
 import sys
 
 
+# Severity levels used in text formatting.
 levels = [
     'info',
     'warn',
@@ -11,12 +12,18 @@ levels = [
 
 
 def print_exit(msg: str, severity: str, exit_status: int):
+    std_err_levels = [
+        'warn',
+        'crit',
+        'debug'
+    ]
+
     if severity not in levels:
         severity = 'debug'
 
     msg = c_fmt(msg, severity)
 
-    if severity == 'debug':
+    if severity in std_err_levels:
         print(f'{msg}', file=sys.stderr)
     else:
         print(f'{msg}')
