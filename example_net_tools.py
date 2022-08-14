@@ -13,7 +13,11 @@ def main():
     cores = cpu_count()
 
     # a list of NetHost objects.
-    server_list = [net_tools.NetHost(x) for x in sys.argv[1:]]
+    if len(sys.argv) > 1:
+        server_list = [net_tools.NetHost(x) for x in sys.argv[1:]]
+    else:
+        msg = 'No hosts specified. Provide a space separated list of hosts.'
+        sys_tools.print_exit(msg, 'crit', 1)
 
     # Run ping.
     servers = run_ping(server_list, cores)
