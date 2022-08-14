@@ -1,5 +1,5 @@
-from getpass import getuser, getpass
 from socket import gethostbyname
+from sys_tools import get_user_name, get_passwd
 import subprocess
 import sys
 
@@ -16,10 +16,8 @@ class NetHost:
         self.outs = None
         self.errs = None
 
-
     def host_ip(self):
         self.ip_addr = get_host_ip(self.hostname)
-
 
     def iface_status(self, iface):
         ping_result = ping_check(iface)
@@ -30,7 +28,6 @@ class NetHost:
             self.ifaces[iface] = 'down'
         else:
             self.ifaces[iface] = 'unknown'
-
 
     def ssh_cmd(self, user, cmd):
         self.outs, self.errs = ssh_cmd(self.hostname, user, cmd)
@@ -58,23 +55,6 @@ def ping_check(host_name):
         return True
     else:
         return False
-
-
-def get_user_name(user_name):
-    if user_name is None:
-        user_name = getuser()
-
-    return user_name
-
-def get_passwd():
-    passwd = None:
-    while passwd is None:
-        passwd = getpass()
-
-        if not passwd.strip():
-            passwd = None
-
-    return passwd
 
 
 def ssh_cmd(host_name, user_name, cmd):
