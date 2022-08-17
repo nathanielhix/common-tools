@@ -27,8 +27,8 @@ def main():
 
     # Run ssh.
     cmd = ['uptime']
-    for x in server_list:
-        x.ssh_cmd('svc-admin', cmd)
+    for server in server_list:
+        server.ssh_cmd('svc-admin', cmd)
 
     # Print the results
     print(json.dumps(servers, indent=2))
