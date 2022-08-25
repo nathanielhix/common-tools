@@ -31,7 +31,7 @@ def main():
         server.ssh_cmd('svc-admin', cmd)
 
     # Print the results
-    print(json.dumps(servers, indent=2))
+    print_results(server_list, args)
 
 
 def run_ping(server_list, cores):
@@ -60,6 +60,7 @@ def ping_server(server):
 
     return server
 
+
 def create_parser():
     # Create a parser.
     parser = argparse.ArgumentParser(description='Common Tools Example')
@@ -77,6 +78,23 @@ def create_parser():
     opts_fmt.add_argument('-c', '--csv', action='store_true', help='Output in CSV format.')
 
     return parser.parse_args()
+
+
+def print_results(server_list, args):
+    if args.json:
+        results = {}
+        for server in server_list:
+            results[server.hostname] = {k:v for k, v in server.__dict__.items()}
+        print(json.dumps(results, indent=2))
+
+    elif args.csv:
+        print(','.join(f'"{k}"' for k in server_list[0].__dict__.keys()))
+        for server in server_list:
+            print(','.join(f'"{v}"' for v in server.__dict__.values()))
+    else:
+        for server in server_list:
+            for k, v in server.__dict__.items():
+                print(f'{k}: {v}')
 
 
 if __name__ == '__main__':
